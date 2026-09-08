@@ -1,0 +1,115 @@
+<h1>Team Manager</h1>
+<label>View Mode:</label>
+<select [(ngModel)]="viewMode">
+  <option value="card">Card View</option>
+  <option value="list">List View</option>
+</select>
+<br>
+<label>Department Select:</label>
+<select [(ngModel)]="selectedDept">
+  <option value="All">All</option>
+
+  @for (dept of departments; track dept) {
+    <option [value]="dept">
+      {{ dept }}
+    </option>
+  }
+</select>
+<br>
+<label>Name:</label>
+<input
+  [(ngModel)]="newMember.name"
+  placeholder="Name">
+
+<br>
+<label>Age:</label>
+<input
+  [(ngModel)]="newMember.age"
+  type="number"
+  placeholder="Age">
+<br>
+<label>Department:</label>
+<select [(ngModel)]="newMember.department">
+  @for (dept of departments; track dept) {
+    <option [value]="dept">
+      {{ dept }}
+    </option>
+  }
+</select>
+<br>
+
+<label>Status:</label><br>
+<label>
+  <input
+    type="radio"
+    [(ngModel)]="newMember.isAvailable"
+    [value]="true"> Available
+</label><br>
+<label>
+  <input
+    type="radio"
+    [(ngModel)]="newMember.isAvailable"
+    [value]="false"> Unavailable
+</label>
+<br>
+
+<button (click)="addMember()">
+  Add
+</button>
+
+<h2>Team Members</h2>
+
+@for (member of team; track member) {
+  @if (
+    selectedDept === 'All' ||
+    member.department === selectedDept
+  ) {
+    @switch (viewMode) {
+      @case ('card') {
+        <div class="card" 
+             [class.available]="member.isAvailable" 
+             [class.unavailable]="!member.isAvailable">
+
+          <h4>{{ member.name }}</h4>   
+          <p>Age: {{ member.age }}</p>
+
+          <p>Department: {{ member.department }}</p>
+
+          <p>
+            Status:
+            {{ member.isAvailable
+                ? 'Available'
+                : 'Unavailable' }}
+          </p>
+
+          <button
+            (click)="toggleAvailability(member)">
+            Toggle
+          </button>
+
+        </div>
+      }
+      @case ('list') {
+        <ul>
+          <li [class.available]="member.isAvailable" 
+              [class.unavailable]="!member.isAvailable">
+            {{ member.name }}
+            -
+            {{ member.department }}
+            -
+            <strong>
+              {{ member.isAvailable ? '✔️' : '❌' }}
+            </strong>
+
+            <button
+              (click)="toggleAvailability(member)">
+              Toggle
+            </button>
+          </li>
+        </ul>
+      }
+    }
+  }
+} @empty {
+  <p class="empty-msg">No members</p>
+}

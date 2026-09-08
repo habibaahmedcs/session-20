@@ -1,0 +1,39 @@
+.card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.card.available {
+  border-left: 6px solid #52c46c;
+  background-color: #f4fbf6;
+}
+
+.card.unavailable {
+  border-left: 6px solid #ec6270;
+  background-color: #fdf2f2;
+}
+
+.error {
+  color: #ee606e;
+  font-weight: bold;
+}
+
+.empty-msg {
+  color: #6c757d;
+  font-style: italic;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li.available {
+  color: #074816;
+}
+
+li.unavailable {
+  color: #721c24;
+}
